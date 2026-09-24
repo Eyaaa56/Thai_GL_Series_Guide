@@ -1,3 +1,5 @@
+import { upload } from "@vercel/blob/client";
+
 // Use the same origin by default.  In development Vite proxies /api to the
 // Express server; this also keeps the app working when opened via the PC's
 // LAN address instead of only through localhost.
@@ -30,4 +32,3 @@ export async function uploadFile(file) {
     clientPayload: JSON.stringify({ token }),
   });
 }
-import { upload } from "@vercel/blob/client";
