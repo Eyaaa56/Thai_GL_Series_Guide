@@ -5,7 +5,7 @@ This repository deploys as one Vercel project:
 - `client/` builds to the static site.
 - `api/index.js` runs the Express API as a Vercel Function.
 - MongoDB Atlas stores application data.
-- Admin cover-image uploads are written to Vercel Blob; MongoDB stores only the Blob URL.
+- Admin cover-image uploads go directly from the browser to Vercel Blob with a short-lived, admin-authorized upload token; MongoDB stores only the Blob URL.
 
 ## Configure cloud services
 

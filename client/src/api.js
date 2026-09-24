@@ -19,15 +19,15 @@ export async function apiRequest(path, options = {}) {
 
 export async function uploadFile(file) {
   const token = localStorage.getItem("roseframe_token");
-  const response = await fetch(apiUrl("/uploads"), {
-    method: "POST",
-    headers: {
-      "Content-Type": file.type,
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    },
-    body: file,
+  if (!token) throw new Error("Authentication required");
+  if (!file.type) throw new Error("Unable to determine the image type");
+
+  // The file goes from the browser directly to Vercel Blob. The API endpoint
+  // only authorizes the short-lived upload token and never receives file bytes.
+  return upload(`series-covers/${Date.now()}-${file.name}`, file, {
+    access: "public",
+    handleUploadUrl: apiUrl("/uploads"),
+    clientPayload: JSON.stringify({ token }),
   });
-  const data = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(data.message || "Upload failed");
-  return data;
 }
+import { upload } from "@vercel/blob/client";
