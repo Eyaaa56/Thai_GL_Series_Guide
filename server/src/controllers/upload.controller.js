@@ -10,7 +10,9 @@ const uploadCover = async (req, res, next) => {
       return res.status(500).json({ message: "Blob storage is not configured. Connect a Vercel Blob store to this project." });
     }
 
+    const blobToken = process.env.BLOB_READ_WRITE_TOKEN.trim();
     const jsonResponse = await handleUpload({
+      token: blobToken,
       body: req.body,
       request: req,
       onBeforeGenerateToken: async (pathname, clientPayload) => {
@@ -33,11 +35,6 @@ const uploadCover = async (req, res, next) => {
           addRandomSuffix: true,
           tokenPayload: JSON.stringify({ userId: user._id.toString() }),
         };
-      },
-      onUploadCompleted: async ({ blob, tokenPayload }) => {
-        // The client receives blob.url and saves it with the series. This hook
-        // deliberately does not write file data to the function filesystem.
-        console.log("Vercel Blob cover uploaded", blob.pathname, tokenPayload);
       },
     });
     res.status(200).json(jsonResponse);
