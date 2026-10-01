@@ -47,12 +47,6 @@ function Stars({ value, onRate }) {
 function Poster({ item, compact = false }) {
   return <div className={`relative overflow-hidden rounded-[1.25rem] bg-gradient-to-br ${item.tone} ${compact ? 'aspect-[1/1.25]' : 'aspect-[3/4]'}`}>
     {item.posterUrl && <img src={item.posterUrl} alt="" className="absolute inset-0 h-full w-full object-cover" />}
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(255,255,255,.9),transparent_27%),linear-gradient(145deg,transparent_48%,rgba(255,255,255,.32))]" />
-    <span className="absolute left-4 top-4 text-[.6rem] font-bold uppercase tracking-[.24em] text-stone-700/70">thai gl · roseframe</span>
-    <div className="absolute inset-x-4 bottom-5 text-stone-800">
-      <p className="font-display text-2xl leading-none tracking-tight">{item.title}</p>
-      <p className="mt-2 text-[.62rem] font-medium uppercase tracking-[.16em] opacity-70">{item.label}</p>
-    </div>
   </div>;
 }
 
